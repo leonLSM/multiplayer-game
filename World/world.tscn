@@ -1,6 +1,6 @@
 [gd_scene load_steps=7 format=3 uid="uid://b7gy67qkem7jy"]
 
-[ext_resource type="Script" path="res://world.gd" id="1_3oe8d"]
+[ext_resource type="Script" path="res://World/world.gd" id="1_mil2v"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_vljob"]
 sky_horizon_color = Color(0.64625, 0.65575, 0.67075, 1)
@@ -21,7 +21,7 @@ size = Vector3(10, 0.5, 10)
 [sub_resource type="BoxMesh" id="BoxMesh_pfj6t"]
 
 [node name="World" type="Node"]
-script = ExtResource("1_3oe8d")
+script = ExtResource("1_mil2v")
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
 transform = Transform3D(-0.866025, -0.433013, 0.25, 0, 0.5, 0.866025, -0.5, 0.75, -0.433013, 0, 0, 0)
@@ -83,7 +83,6 @@ layout_mode = 2
 text = "Join"
 
 [node name="MultiplayerSpawner" type="MultiplayerSpawner" parent="."]
-_spawnable_scenes = PackedStringArray("res://player.tscn")
 spawn_path = NodePath("..")
 
 [connection signal="pressed" from="CanvasLayer/MainMenu/MarginContainer/VBoxContainer/HostButton" to="." method="_on_host_button_pressed"]
