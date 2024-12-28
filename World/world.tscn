@@ -1,4 +1,4 @@
-[gd_scene load_steps=7 format=3 uid="uid://b7gy67qkem7jy"]
+[gd_scene load_steps=8 format=3 uid="uid://b7gy67qkem7jy"]
 
 [ext_resource type="Script" path="res://World/world.gd" id="1_mil2v"]
 
@@ -16,9 +16,13 @@ tonemap_mode = 2
 glow_enabled = true
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_lfnwf"]
-size = Vector3(10, 0.5, 10)
+size = Vector3(30, 0.5, 30)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_e4dyl"]
+albedo_color = Color(0.083677, 0.221029, 0.11905, 1)
 
 [sub_resource type="BoxMesh" id="BoxMesh_pfj6t"]
+material = SubResource("StandardMaterial3D_e4dyl")
 
 [node name="World" type="Node"]
 script = ExtResource("1_mil2v")
@@ -36,7 +40,7 @@ environment = SubResource("Environment_86yvn")
 shape = SubResource("BoxShape3D_lfnwf")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="Map"]
-transform = Transform3D(10, 0, 0, 0, 0.5, 0, 0, 0, 10, 0, 0, 0)
+transform = Transform3D(29.925, 0, 0, 0, 0.49875, 0, 0, 0, 29.925, 0, 0, 0)
 mesh = SubResource("BoxMesh_pfj6t")
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
@@ -83,6 +87,7 @@ layout_mode = 2
 text = "Join"
 
 [node name="MultiplayerSpawner" type="MultiplayerSpawner" parent="."]
+_spawnable_scenes = PackedStringArray("res://Player/player.tscn")
 spawn_path = NodePath("..")
 
 [connection signal="pressed" from="CanvasLayer/MainMenu/MarginContainer/VBoxContainer/HostButton" to="." method="_on_host_button_pressed"]

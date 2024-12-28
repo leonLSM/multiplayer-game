@@ -2,6 +2,7 @@ extends CharacterBody3D
 
 @onready var cam = $Camera3D
 @onready var arm = $Arm
+@onready var raycast = $Camera3D/RayCast3D
 const gun = preload("res://gun.tscn")
 const SPEED = 5.0
 const JUMP_VELOCITY = 4.5
@@ -23,6 +24,11 @@ func _unhandled_input(event: InputEvent) -> void:
 		rotate_y(-event.relative.x * 0.005)
 		cam.rotate_x(-event.relative.y *0.005)
 		cam.rotation.x = clamp(cam.rotation.x, -PI/2, PI/2)
+	
+	if Input.is_action_just_pressed('shoot'):
+		if raycast.is_colliding():
+			var hit_entity = raycast.get_collider()
+			hit_entity.receive_damage.rpc_id(hit_entity.get_multiplayer_authority())
 
 
 func _physics_process(delta: float) -> void:
@@ -52,3 +58,7 @@ func _physics_process(delta: float) -> void:
 @rpc('call_local')
 func equip_weapon():
 	arm.add_child(gun.instantiate())
+
+@rpc("any_peer")
+func receive_damage():
+	position = Vector3.ZERO

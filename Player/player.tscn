@@ -36,6 +36,10 @@ mesh = SubResource("CapsuleMesh_4kv7j")
 [node name="Camera3D" type="Camera3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.73981, -0.0930674)
 
+[node name="RayCast3D" type="RayCast3D" parent="Camera3D"]
+target_position = Vector3(0, 0, -50)
+collision_mask = 2
+
 [node name="Arm" type="Node3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.476588, 0.484699, -0.329635)
 

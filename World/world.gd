@@ -3,7 +3,7 @@ extends Node
 @onready var MainMenu = $CanvasLayer/MainMenu
 @onready var AddressEntry = $CanvasLayer/MainMenu/MarginContainer/VBoxContainer/AddressEntry
 
-const Player = preload("res://player.tscn")
+const Player = preload("res://Player/player.tscn")
 const PORT = 9999
 var enet_peer = ENetMultiplayerPeer.new()
 
