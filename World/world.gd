@@ -3,6 +3,8 @@ extends Node
 @onready var MainMenu = $CanvasLayer/MainMenu
 @onready var AddressEntry = $CanvasLayer/MainMenu/MarginContainer/VBoxContainer/AddressEntry
 
+@export var spawn_location : Node3D
+
 const Player = preload("res://Player/player.tscn")
 const PORT = 9999
 var enet_peer = ENetMultiplayerPeer.new()
@@ -40,6 +42,13 @@ func add_player(peer_id):
 	var player = Player.instantiate()
 	player.name = str(peer_id)
 	add_child(player)
+	position_player.rpc(player.name)
+
+@rpc("call_local")
+func position_player(player_name):
+	var player = get_node("/root/World/%s" % player_name)
+	player.spawn_point = spawn_location.position
+	player.position = spawn_location.position
 
 func upnp_setup():
 	var upnp = UPNP.new()

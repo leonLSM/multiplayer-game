@@ -4,6 +4,9 @@ extends CharacterBody3D
 @onready var raycast = $Camera3D/RayCast3D
 @onready var weapon = $Camera3D/Arm/Weapon
 
+var spawn_point : Vector3
+var username : String
+
 var max_health = 100
 var health = max_health
 
@@ -61,5 +64,5 @@ func receive_damage(damage):
 	health -= damage
 	print(health)
 	if health <= 0:
-		position = Vector3.ZERO
+		position = spawn_point
 		health = max_health

@@ -1,47 +1,38 @@
-[gd_scene load_steps=8 format=3 uid="uid://b7gy67qkem7jy"]
+[gd_scene load_steps=7 format=3 uid="uid://b7gy67qkem7jy"]
 
 [ext_resource type="Script" path="res://World/world.gd" id="1_mil2v"]
+[ext_resource type="PackedScene" uid="uid://cigvhlhstic81" path="res://World/terrain.tscn" id="2_4wncf"]
+[ext_resource type="Texture2D" uid="uid://cuc0sf5w4a1nw" path="res://Blender Meshes/Red Sky.jpg" id="2_5pf6a"]
 
-[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_vljob"]
-sky_horizon_color = Color(0.64625, 0.65575, 0.67075, 1)
-ground_horizon_color = Color(0.64625, 0.65575, 0.67075, 1)
+[sub_resource type="PanoramaSkyMaterial" id="PanoramaSkyMaterial_duu5b"]
+panorama = ExtResource("2_5pf6a")
+energy_multiplier = 0.0
 
 [sub_resource type="Sky" id="Sky_30fwo"]
-sky_material = SubResource("ProceduralSkyMaterial_vljob")
+sky_material = SubResource("PanoramaSkyMaterial_duu5b")
 
 [sub_resource type="Environment" id="Environment_86yvn"]
 background_mode = 2
 sky = SubResource("Sky_30fwo")
 tonemap_mode = 2
 glow_enabled = true
+volumetric_fog_enabled = true
+volumetric_fog_density = 0.25
+volumetric_fog_albedo = Color(0.757245, 0.528167, 5.0056e-06, 1)
+volumetric_fog_anisotropy = 0.0
+volumetric_fog_ambient_inject = 1.0
 
-[sub_resource type="BoxShape3D" id="BoxShape3D_lfnwf"]
-size = Vector3(30, 0.5, 30)
-
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_e4dyl"]
-albedo_color = Color(0.083677, 0.221029, 0.11905, 1)
-
-[sub_resource type="BoxMesh" id="BoxMesh_pfj6t"]
-material = SubResource("StandardMaterial3D_e4dyl")
-
-[node name="World" type="Node"]
+[node name="World" type="Node" node_paths=PackedStringArray("spawn_location")]
 script = ExtResource("1_mil2v")
+spawn_location = NodePath("ServerSpawn")
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
 transform = Transform3D(-0.866025, -0.433013, 0.25, 0, 0.5, 0.866025, -0.5, 0.75, -0.433013, 0, 0, 0)
+light_color = Color(0.957473, 0.592785, 0.584603, 1)
 shadow_enabled = true
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = SubResource("Environment_86yvn")
-
-[node name="Map" type="StaticBody3D" parent="."]
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Map"]
-shape = SubResource("BoxShape3D_lfnwf")
-
-[node name="MeshInstance3D" type="MeshInstance3D" parent="Map"]
-transform = Transform3D(29.925, 0, 0, 0, 0.49875, 0, 0, 0, 29.925, 0, 0, 0)
-mesh = SubResource("BoxMesh_pfj6t")
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 
@@ -89,6 +80,11 @@ text = "Join"
 [node name="MultiplayerSpawner" type="MultiplayerSpawner" parent="."]
 _spawnable_scenes = PackedStringArray("res://Player/player.tscn")
 spawn_path = NodePath("..")
+
+[node name="terrain" parent="." instance=ExtResource("2_4wncf")]
+
+[node name="ServerSpawn" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.758496, -19.6249)
 
 [connection signal="pressed" from="CanvasLayer/MainMenu/MarginContainer/VBoxContainer/HostButton" to="." method="_on_host_button_pressed"]
 [connection signal="pressed" from="CanvasLayer/MainMenu/MarginContainer/VBoxContainer/JoinButton" to="." method="_on_join_button_pressed"]
