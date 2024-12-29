@@ -1,0 +1,16 @@
+[gd_resource type="Resource" script_class="Weapons" load_steps=3 format=3 uid="uid://rgf88hcte5gb"]
+
+[ext_resource type="Script" path="res://Weapons/weapons.gd" id="1_r6spm"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_ssu0l"]
+size = Vector3(0.065, 0.055, 1.17)
+
+[resource]
+script = ExtResource("1_r6spm")
+name = &"Assault Rifle"
+position = Vector3(-0.04, 0, -0.615)
+rotation = Vector3(0, 0, 0)
+mesh = SubResource("BoxMesh_ssu0l")
+damage = 50
+ammo_count = 0
+auto = false

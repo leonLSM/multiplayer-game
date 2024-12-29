@@ -1,9 +1,12 @@
 extends CharacterBody3D
 
 @onready var cam = $Camera3D
-@onready var arm = $Arm
 @onready var raycast = $Camera3D/RayCast3D
-const gun = preload("res://gun.tscn")
+@onready var weapon = $Camera3D/Arm/Weapon
+
+var max_health = 100
+var health = max_health
+
 const SPEED = 5.0
 const JUMP_VELOCITY = 4.5
 
@@ -15,7 +18,6 @@ func _ready() -> void:
 	
 	Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
 	cam.current = true
-	equip_weapon.rpc()
 
 func _unhandled_input(event: InputEvent) -> void:
 	if not is_multiplayer_authority(): return
@@ -28,8 +30,7 @@ func _unhandled_input(event: InputEvent) -> void:
 	if Input.is_action_just_pressed('shoot'):
 		if raycast.is_colliding():
 			var hit_entity = raycast.get_collider()
-			hit_entity.receive_damage.rpc_id(hit_entity.get_multiplayer_authority())
-
+			hit_entity.receive_damage.rpc_id(hit_entity.get_multiplayer_authority(), weapon.WEAPON_TYPE.damage)
 
 func _physics_process(delta: float) -> void:
 	if not is_multiplayer_authority(): return
@@ -55,10 +56,10 @@ func _physics_process(delta: float) -> void:
 
 	move_and_slide()
 
-@rpc('call_local')
-func equip_weapon():
-	arm.add_child(gun.instantiate())
-
 @rpc("any_peer")
-func receive_damage():
-	position = Vector3.ZERO
+func receive_damage(damage):
+	health -= damage
+	print(health)
+	if health <= 0:
+		position = Vector3.ZERO
+		health = max_health

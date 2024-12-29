@@ -1,6 +1,8 @@
-[gd_scene load_steps=6 format=3 uid="uid://lj1rjkleqkkf"]
+[gd_scene load_steps=8 format=3 uid="uid://lj1rjkleqkkf"]
 
 [ext_resource type="Script" path="res://Player/player.gd" id="1_07l23"]
+[ext_resource type="PackedScene" uid="uid://cvxj1yu7gac8i" path="res://Weapons/weapon.tscn" id="2_tseqi"]
+[ext_resource type="Resource" uid="uid://rgf88hcte5gb" path="res://Weapons/Assault Rifle/Assault Rifle.tres" id="3_8lp46"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_xt3nj"]
 
@@ -19,9 +21,18 @@ properties/1/replication_mode = 1
 properties/2/path = NodePath("Camera3D:rotation")
 properties/2/spawn = true
 properties/2/replication_mode = 1
-properties/3/path = NodePath("Arm:position")
+properties/3/path = NodePath("Camera3D/Arm:position")
 properties/3/spawn = true
 properties/3/replication_mode = 1
+properties/4/path = NodePath("Camera3D/Arm/Weapon:position")
+properties/4/spawn = true
+properties/4/replication_mode = 1
+properties/5/path = NodePath("Camera3D/Arm:rotation")
+properties/5/spawn = true
+properties/5/replication_mode = 1
+properties/6/path = NodePath("Camera3D/Arm/Weapon:rotation")
+properties/6/spawn = true
+properties/6/replication_mode = 1
 
 [node name="Player" type="CharacterBody3D"]
 collision_layer = 2
@@ -40,12 +51,12 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.73981, -0.0930674)
 target_position = Vector3(0, 0, -50)
 collision_mask = 2
 
-[node name="Arm" type="Node3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.476588, 0.484699, -0.329635)
+[node name="Arm" type="Node3D" parent="Camera3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.476588, -0.255111, -0.236568)
+
+[node name="Weapon" parent="Camera3D/Arm" instance=ExtResource("2_tseqi")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.04, 0, -0.615)
+WEAPON_TYPE = ExtResource("3_8lp46")
 
 [node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="."]
 replication_config = SubResource("SceneReplicationConfig_1nebe")
-
-[node name="MultiplayerSpawner" type="MultiplayerSpawner" parent="."]
-_spawnable_scenes = PackedStringArray("res://gun.tscn")
-spawn_path = NodePath("../Arm")
