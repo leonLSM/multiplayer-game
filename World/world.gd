@@ -2,7 +2,7 @@ extends Node
 
 @onready var MainMenu = $CanvasLayer/MainMenu
 @onready var AddressEntry = $CanvasLayer/MainMenu/MarginContainer/VBoxContainer/AddressEntry
-
+@onready var postfx = $CanvasLayer/PostFX
 @export var spawn_location : Node3D
 
 const Player = preload("res://Player/player.tscn")
@@ -16,6 +16,7 @@ func _unhandled_key_input(_event: InputEvent) -> void:
 
 func _on_host_button_pressed() -> void:
 	MainMenu.hide()
+	postfx.visible = true
 	
 	enet_peer.create_server(PORT)
 	multiplayer.multiplayer_peer = enet_peer
@@ -29,6 +30,7 @@ func _on_host_button_pressed() -> void:
 
 func _on_join_button_pressed() -> void:
 	MainMenu.hide()
+	postfx.visible = true
 	
 	enet_peer.create_client(AddressEntry.text, PORT)
 	multiplayer.multiplayer_peer = enet_peer

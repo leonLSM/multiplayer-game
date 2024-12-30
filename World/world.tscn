@@ -1,8 +1,9 @@
-[gd_scene load_steps=7 format=3 uid="uid://b7gy67qkem7jy"]
+[gd_scene load_steps=9 format=3 uid="uid://b7gy67qkem7jy"]
 
 [ext_resource type="Script" path="res://World/world.gd" id="1_mil2v"]
 [ext_resource type="PackedScene" uid="uid://cigvhlhstic81" path="res://World/terrain.tscn" id="2_4wncf"]
 [ext_resource type="Texture2D" uid="uid://cuc0sf5w4a1nw" path="res://Blender Meshes/Red Sky.jpg" id="2_5pf6a"]
+[ext_resource type="Shader" path="res://World/retropixel.gdshader" id="4_6gvjx"]
 
 [sub_resource type="PanoramaSkyMaterial" id="PanoramaSkyMaterial_duu5b"]
 panorama = ExtResource("2_5pf6a")
@@ -19,8 +20,23 @@ glow_enabled = true
 volumetric_fog_enabled = true
 volumetric_fog_density = 0.25
 volumetric_fog_albedo = Color(0.757245, 0.528167, 5.0056e-06, 1)
+volumetric_fog_emission = Color(0.273873, 0.273873, 0.273873, 1)
 volumetric_fog_anisotropy = 0.0
 volumetric_fog_ambient_inject = 1.0
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_ugvof"]
+shader = ExtResource("4_6gvjx")
+shader_parameter/shake = 0.0
+shader_parameter/noiseQuality = 250.0
+shader_parameter/noiseIntensity = 0.001
+shader_parameter/offsetIntensity = 0.0045
+shader_parameter/colorOffsetIntensity = 0.2
+shader_parameter/pixelSize = 1024.0
+shader_parameter/grainIntensity = 0.04
+shader_parameter/use_overlay = true
+shader_parameter/use_lens_distortion = false
+shader_parameter/overlay_color = Color(1, 1, 1, 10)
+shader_parameter/lens_distortion_strength = 0.05
 
 [node name="World" type="Node" node_paths=PackedStringArray("spawn_location")]
 script = ExtResource("1_mil2v")
@@ -76,6 +92,16 @@ alignment = 1
 [node name="JoinButton" type="Button" parent="CanvasLayer/MainMenu/MarginContainer/VBoxContainer"]
 layout_mode = 2
 text = "Join"
+
+[node name="PostFX" type="ColorRect" parent="CanvasLayer"]
+visible = false
+material = SubResource("ShaderMaterial_ugvof")
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
 
 [node name="MultiplayerSpawner" type="MultiplayerSpawner" parent="."]
 _spawnable_scenes = PackedStringArray("res://Player/player.tscn")
