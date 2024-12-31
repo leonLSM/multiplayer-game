@@ -1,0 +1,13 @@
+[gd_resource type="Resource" script_class="Items" load_steps=3 format=3 uid="uid://cuv6qd8gkgogw"]
+
+[ext_resource type="Script" path="res://Items/items.gd" id="1_faa5o"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_fb03t"]
+size = Vector3(0.5, 0.5, 0.5)
+
+[resource]
+script = ExtResource("1_faa5o")
+name = &"Medkit"
+mesh = SubResource("BoxMesh_fb03t")
+weight = 3
+is_weapon = false

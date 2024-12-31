@@ -65,6 +65,7 @@ func _unhandled_input(event: InputEvent) -> void:
 		speed = walking_speed
 	
 	if Input.is_action_just_pressed('shoot'):
+		print($Neck/Head/InteractionArea.inventory)
 		if raycast.is_colliding():
 			var hit_entity = raycast.get_collider()
 			hit_entity.receive_damage.rpc_id(hit_entity.get_multiplayer_authority(), weapon.WEAPON_TYPE.damage)
