@@ -1,6 +1,6 @@
 @tool
 
-extends Node
+extends RigidBody3D
 
 @export var ITEM_TYPE : Items:
 	set(value):
@@ -8,8 +8,8 @@ extends Node
 		if Engine.is_editor_hint():
 			load_item()
 
-@onready var item_mesh : MeshInstance3D = $RigidBody3D/MeshInstance3D
-@onready var item_collision : CollisionShape3D = $RigidBody3D/CollisionShape3D
+@onready var item_mesh : MeshInstance3D = $ItemMesh
+@onready var item_collision : CollisionShape3D = $ItemCollision
 
 func load_item():
 	item_mesh.mesh = ITEM_TYPE.mesh
@@ -18,15 +18,6 @@ func load_item():
 func _ready() -> void:
 	load_item()
 
-@rpc("call_local")
+@rpc("call_local", "any_peer")
 func remove_item():
 	queue_free()
-
-func _on_area_3d_area_entered(area: Area3D) -> void:
-	print("thug fart")
-	area.add_item(ITEM_TYPE)
-	remove_item.rpc()
-
-
-func _on_area_3d_area_exited(area: Area3D) -> void:
-	print("thug disconnected")

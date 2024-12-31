@@ -1,9 +1,10 @@
-[gd_scene load_steps=10 format=3 uid="uid://lj1rjkleqkkf"]
+[gd_scene load_steps=11 format=3 uid="uid://lj1rjkleqkkf"]
 
 [ext_resource type="Script" path="res://Player/player.gd" id="1_07l23"]
 [ext_resource type="Script" path="res://Player/Inventory.gd" id="2_3yeeg"]
 [ext_resource type="PackedScene" uid="uid://cvxj1yu7gac8i" path="res://Weapons/weapon.tscn" id="2_tseqi"]
 [ext_resource type="Resource" uid="uid://rgf88hcte5gb" path="res://Weapons/Assault Rifle/Assault Rifle.tres" id="3_8lp46"]
+[ext_resource type="PackedScene" uid="uid://kva37h7ymubl" path="res://Player/PlayerGUI/inventory.tscn" id="3_kcr6v"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_xt3nj"]
 
@@ -47,11 +48,17 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.704886, 0)
 
 [node name="InteractionArea" type="Area3D" parent="Neck/Head"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.765973)
+collision_layer = 2
 script = ExtResource("2_3yeeg")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Neck/Head/InteractionArea"]
 transform = Transform3D(0.7, 0, 0, 0, 0.7, 0, 0, 0, 0.7, 0, 0, 0)
 shape = SubResource("SphereShape3D_dt8au")
+
+[node name="InventoryUI" type="CanvasLayer" parent="Neck/Head/InteractionArea"]
+
+[node name="Control" parent="Neck/Head/InteractionArea/InventoryUI" instance=ExtResource("3_kcr6v")]
+visible = false
 
 [node name="RayCast3D" type="RayCast3D" parent="Neck"]
 target_position = Vector3(0, 0, -50)
@@ -63,3 +70,6 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.476588, -0.220187, -0.32963
 [node name="Weapon" parent="Neck/Arm" instance=ExtResource("2_tseqi")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.04, 0, -0.615)
 WEAPON_TYPE = ExtResource("3_8lp46")
+
+[connection signal="area_entered" from="Neck/Head/InteractionArea" to="Neck/Head/InteractionArea" method="_on_area_entered"]
+[connection signal="area_exited" from="Neck/Head/InteractionArea" to="Neck/Head/InteractionArea" method="_on_area_exited"]

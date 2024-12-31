@@ -18,7 +18,7 @@ var health = max_health
 const head_bobbing_walking_speed = 14.0
 const head_bobbing_walking_intensity = 0.1
 const head_bobbing_sprinting_speed = 22.0
-const head_bobbing_sprinting_intensity = 0.2
+const head_bobbing_sprinting_intensity = 0.3
 
 var head_bobbing_intensity = 0.0
 var head_bobbing_vector = Vector2.ZERO
@@ -65,7 +65,6 @@ func _unhandled_input(event: InputEvent) -> void:
 		speed = walking_speed
 	
 	if Input.is_action_just_pressed('shoot'):
-		print($Neck/Head/InteractionArea.inventory)
 		if raycast.is_colliding():
 			var hit_entity = raycast.get_collider()
 			hit_entity.receive_damage.rpc_id(hit_entity.get_multiplayer_authority(), weapon.WEAPON_TYPE.damage)

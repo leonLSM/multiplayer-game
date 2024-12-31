@@ -23,7 +23,6 @@ func _unhandled_input(_event: InputEvent) -> void:
 	if Input.is_action_pressed("Select_Down"):
 		switch_weapon.rpc()
 
-
 func load_weapon() -> void:
 	weapon_mesh.mesh = WEAPON_TYPE.mesh
 	position = WEAPON_TYPE.position
