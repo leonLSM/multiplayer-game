@@ -10,13 +10,17 @@ extends RigidBody3D
 
 @onready var item_mesh : MeshInstance3D = $ItemMesh
 @onready var item_collision : CollisionShape3D = $ItemCollision
+@onready var spawn_location : Node3D
 
 func load_item():
 	item_mesh.mesh = ITEM_TYPE.mesh
 	item_collision.scale = ITEM_TYPE.mesh.size
 
 func _ready() -> void:
-	load_item()
+	if ITEM_TYPE != null:
+		load_item()
+		position = spawn_location.position
+		print("ready")
 
 @rpc("call_local", "any_peer")
 func remove_item():

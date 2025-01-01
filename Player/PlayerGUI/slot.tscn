@@ -1,11 +1,13 @@
-[gd_scene load_steps=2 format=3 uid="uid://bu4fwclbwemsg"]
+[gd_scene load_steps=3 format=3 uid="uid://bu4fwclbwemsg"]
 
 [ext_resource type="Texture2D" uid="uid://cewbajlkohu3a" path="res://icon.svg" id="1_03nhx"]
+[ext_resource type="Script" path="res://Player/PlayerGUI/slot.gd" id="1_k8se0"]
 
 [node name="Slot" type="PanelContainer"]
 custom_minimum_size = Vector2(64, 64)
 offset_right = 64.0
 offset_bottom = 64.0
+script = ExtResource("1_k8se0")
 
 [node name="MarginContainer" type="MarginContainer" parent="."]
 layout_mode = 2

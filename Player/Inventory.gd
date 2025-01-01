@@ -1,6 +1,7 @@
 extends Area3D
 
 @onready var inventory_ui = $InventoryUI/Control
+@onready var inventory_ui_grid = $InventoryUI/Control/MarginContainer/ItemGrid
 @onready var slot = preload("res://Player/PlayerGUI/slot.tscn")
 
 #Inventory Variables
@@ -27,7 +28,8 @@ func add_item(item_type):
 	inventory.append(item_type)
 	inventory_weight += item_type.weight
 	var new_item = slot.instantiate()
-	inventory_ui.add_child(new_item)
+	new_item.set_icon(item_type.icon)
+	inventory_ui_grid.add_child(new_item)
 
 
 func _on_area_entered(area: Area3D) -> void:

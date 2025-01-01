@@ -1,11 +1,10 @@
-[gd_scene load_steps=12 format=3 uid="uid://b7gy67qkem7jy"]
+[gd_scene load_steps=11 format=3 uid="uid://b7gy67qkem7jy"]
 
 [ext_resource type="Script" path="res://World/world.gd" id="1_mil2v"]
 [ext_resource type="PackedScene" uid="uid://cigvhlhstic81" path="res://World/terrain.tscn" id="2_4wncf"]
 [ext_resource type="Texture2D" uid="uid://cuc0sf5w4a1nw" path="res://Blender Meshes/Red Sky.jpg" id="2_5pf6a"]
 [ext_resource type="Shader" path="res://World/retropixel.gdshader" id="4_6gvjx"]
-[ext_resource type="PackedScene" uid="uid://d0rtvkxxowra5" path="res://Items/item.tscn" id="5_10hrv"]
-[ext_resource type="Resource" uid="uid://cuv6qd8gkgogw" path="res://Items/Medkit/Medkit.tres" id="6_8mm7i"]
+[ext_resource type="Script" path="res://World/custom_spawner.gd" id="4_cn1pn"]
 [ext_resource type="AudioStream" uid="uid://c2pmiivvrh4l3" path="res://Audio/smooth-cold-wind-looped-135538.mp3" id="7_ufngm"]
 
 [sub_resource type="PanoramaSkyMaterial" id="PanoramaSkyMaterial_duu5b"]
@@ -106,18 +105,16 @@ grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
 
-[node name="MultiplayerSpawner" type="MultiplayerSpawner" parent="."]
+[node name="MultiplayerSpawner" type="MultiplayerSpawner" parent="." node_paths=PackedStringArray("spawn_location")]
 _spawnable_scenes = PackedStringArray("res://Player/player.tscn", "res://Items/item.tscn")
 spawn_path = NodePath("..")
+script = ExtResource("4_cn1pn")
+spawn_location = NodePath("../ServerSpawn")
 
 [node name="terrain" parent="." instance=ExtResource("2_4wncf")]
 
 [node name="ServerSpawn" type="Node3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.758496, -19.6249)
-
-[node name="Item" parent="." instance=ExtResource("5_10hrv")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.66785, -17.7031)
-ITEM_TYPE = ExtResource("6_8mm7i")
 
 [node name="Wind" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("7_ufngm")

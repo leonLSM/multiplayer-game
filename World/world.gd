@@ -10,6 +10,9 @@ const Player = preload("res://Player/player.tscn")
 const PORT = 9999
 var enet_peer = ENetMultiplayerPeer.new()
 
+const Item = preload("res://Items/item.tscn")
+var Item_Type = preload("res://Items/Medkit/Medkit.tres")
+
 func _unhandled_key_input(_event: InputEvent) -> void:
 	if Input.is_action_just_pressed('quit'):
 		get_tree().quit()
@@ -48,6 +51,8 @@ func add_player(peer_id):
 	player.name = str(peer_id)
 	add_child(player)
 	position_player.rpc(player.name)
+	
+	$MultiplayerSpawner.spawn()
 
 @rpc("call_local")
 func position_player(player_name):
