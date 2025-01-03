@@ -1,16 +1,15 @@
 [gd_resource type="Resource" script_class="Weapons" load_steps=3 format=3 uid="uid://rgf88hcte5gb"]
 
 [ext_resource type="Script" path="res://Weapons/weapons.gd" id="1_r6spm"]
-
-[sub_resource type="BoxMesh" id="BoxMesh_ssu0l"]
-size = Vector3(0.065, 0.055, 1.17)
+[ext_resource type="ArrayMesh" uid="uid://cl47e0or2cho3" path="res://Blender Meshes/Meshes/assault rifle_Cube.res" id="1_y8eor"]
 
 [resource]
 script = ExtResource("1_r6spm")
 name = &"Assault Rifle"
-position = Vector3(-0.04, 0, -0.615)
-rotation = Vector3(0, 0, 0)
-mesh = SubResource("BoxMesh_ssu0l")
+position = Vector3(0, 0, -0.53)
+rotation = Vector3(0, 90, 0)
+scale = Vector3(0.4, 0.4, 0.3)
+mesh = ExtResource("1_y8eor")
 damage = 50
 ammo_count = 0
 auto = false

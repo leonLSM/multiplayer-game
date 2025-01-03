@@ -4,8 +4,9 @@ class_name Weapons extends Resource
 @export_category("Weapon Orientation")
 @export var position : Vector3
 @export var rotation : Vector3
+@export var scale : Vector3
 @export_category("Visual Settings")
-@export var mesh : BoxMesh
+@export var mesh : ArrayMesh
 @export_category("Stats")
 @export var damage : int
 @export var ammo_count : int

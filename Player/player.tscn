@@ -68,7 +68,7 @@ collision_mask = 2
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.476588, -0.220187, -0.329635)
 
 [node name="Weapon" parent="Neck/Arm" instance=ExtResource("2_tseqi")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.04, 0, -0.615)
+transform = Transform3D(-1.74846e-08, 0, 0.3, 0, 0.4, 0, -0.4, 0, -1.31134e-08, 0, 0, -0.53)
 WEAPON_TYPE = ExtResource("3_8lp46")
 
 [connection signal="area_entered" from="Neck/Head/InteractionArea" to="Neck/Head/InteractionArea" method="_on_area_entered"]

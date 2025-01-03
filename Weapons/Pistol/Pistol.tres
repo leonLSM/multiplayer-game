@@ -1,16 +1,15 @@
 [gd_resource type="Resource" script_class="Weapons" load_steps=3 format=3 uid="uid://bmitylplrrgfr"]
 
+[ext_resource type="ArrayMesh" uid="uid://dobuw6vork7d5" path="res://Blender Meshes/Meshes/pistol_Cube.res" id="1_5lhd1"]
 [ext_resource type="Script" path="res://Weapons/weapons.gd" id="1_l7i07"]
-
-[sub_resource type="BoxMesh" id="BoxMesh_eeuti"]
-size = Vector3(0.095, 0.115, 0.51)
 
 [resource]
 script = ExtResource("1_l7i07")
 name = &"Pistol"
-position = Vector3(0, 0, -0.58)
-rotation = Vector3(0, 0, 0)
-mesh = SubResource("BoxMesh_eeuti")
+position = Vector3(0, 0, -0.317)
+rotation = Vector3(0, -90, 0)
+scale = Vector3(0.05, 0.1, 0.1)
+mesh = ExtResource("1_5lhd1")
 damage = 20
 ammo_count = 0
 auto = false

@@ -30,7 +30,8 @@ func _unhandled_input(_event: InputEvent) -> void:
 func load_weapon() -> void:
 	weapon_mesh.mesh = WEAPON_TYPE.mesh
 	position = WEAPON_TYPE.position
-	rotation = WEAPON_TYPE.rotation
+	rotation_degrees = WEAPON_TYPE.rotation
+	scale = WEAPON_TYPE.scale
 
 @rpc("call_local")
 func switch_weapon(number):
