@@ -7,4 +7,4 @@ class_name Items extends Resource
 @export_category('Stats')
 @export var weight : int
 @export var is_weapon : bool
- 
+@export var health_points : int

@@ -5,6 +5,7 @@ extends CharacterBody3D
 @onready var cam = $Neck/Head/Camera3D
 @onready var raycast = $Neck/RayCast3D
 @onready var weapon = $Neck/Arm/Weapon
+@onready var inventory = $Neck/Head/InteractionArea
 
 #User Variables
 var spawn_point : Vector3
@@ -49,7 +50,7 @@ func _unhandled_input(event: InputEvent) -> void:
 	if not is_multiplayer_authority(): return
 	
 	#Handle Camera Movement
-	if event is InputEventMouseMotion:
+	if event is InputEventMouseMotion and !inventory.inventory_open:
 		rotate_y(-event.relative.x * 0.005)
 		neck.rotate_x(-event.relative.y *0.005)
 		neck.rotation.x = clamp(neck.rotation.x, -PI/2, PI/2)

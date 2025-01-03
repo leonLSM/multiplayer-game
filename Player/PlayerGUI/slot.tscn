@@ -4,7 +4,7 @@
 [ext_resource type="Script" path="res://Player/PlayerGUI/slot.gd" id="1_k8se0"]
 
 [node name="Slot" type="PanelContainer"]
-custom_minimum_size = Vector2(64, 64)
+custom_minimum_size = Vector2(128, 128)
 offset_right = 64.0
 offset_bottom = 64.0
 script = ExtResource("1_k8se0")
@@ -22,9 +22,14 @@ texture = ExtResource("1_03nhx")
 expand_mode = 1
 stretch_mode = 5
 
+[node name="Button" type="Button" parent="MarginContainer"]
+layout_mode = 2
+
 [node name="QuantityLabel" type="Label" parent="."]
 layout_mode = 2
 size_flags_horizontal = 8
 size_flags_vertical = 0
 theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
-text = "x99"
+text = "1"
+
+[connection signal="pressed" from="MarginContainer/Button" to="." method="_on_button_pressed"]

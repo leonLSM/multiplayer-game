@@ -1,0 +1,75 @@
+[gd_scene load_steps=11 format=3 uid="uid://lj1rjkleqkkf"]
+
+[ext_resource type="Script" path="res://Player/player.gd" id="1_07l23"]
+[ext_resource type="Script" path="res://Player/Inventory.gd" id="2_3yeeg"]
+[ext_resource type="PackedScene" uid="uid://cvxj1yu7gac8i" path="res://Weapons/weapon.tscn" id="2_tseqi"]
+[ext_resource type="Resource" uid="uid://rgf88hcte5gb" path="res://Weapons/Assault Rifle/Assault Rifle.tres" id="3_8lp46"]
+[ext_resource type="PackedScene" uid="uid://kva37h7ymubl" path="res://Player/PlayerGUI/inventory.tscn" id="3_kcr6v"]
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_xt3nj"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_513an"]
+
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_4kv7j"]
+material = SubResource("StandardMaterial3D_513an")
+
+[sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_1nebe"]
+properties/0/path = NodePath(".:position")
+properties/0/spawn = true
+properties/0/replication_mode = 1
+properties/1/path = NodePath(".:rotation")
+properties/1/spawn = true
+properties/1/replication_mode = 1
+properties/2/path = NodePath("Neck:rotation")
+properties/2/spawn = true
+properties/2/replication_mode = 1
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_dt8au"]
+
+[node name="Player" type="CharacterBody3D"]
+collision_layer = 2
+script = ExtResource("1_07l23")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+shape = SubResource("CapsuleShape3D_xt3nj")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+mesh = SubResource("CapsuleMesh_4kv7j")
+
+[node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="."]
+replication_config = SubResource("SceneReplicationConfig_1nebe")
+
+[node name="Neck" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.704886, 0)
+
+[node name="Head" type="Node3D" parent="Neck"]
+
+[node name="Camera3D" type="Camera3D" parent="Neck/Head"]
+
+[node name="InteractionArea" type="Area3D" parent="Neck/Head"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.765973)
+collision_layer = 2
+script = ExtResource("2_3yeeg")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Neck/Head/InteractionArea"]
+transform = Transform3D(0.7, 0, 0, 0, 0.7, 0, 0, 0, 0.7, 0, 0, 0)
+shape = SubResource("SphereShape3D_dt8au")
+
+[node name="InventoryUI" type="CanvasLayer" parent="Neck/Head/InteractionArea"]
+
+[node name="Control" parent="Neck/Head/InteractionArea/InventoryUI" instance=ExtResource("3_kcr6v")]
+visible = false
+
+[node name="RayCast3D" type="RayCast3D" parent="Neck"]
+target_position = Vector3(0, 0, -50)
+collision_mask = 2
+
+[node name="Arm" type="Node3D" parent="Neck"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.476588, -0.220187, -0.329635)
+
+[node name="Weapon" parent="Neck/Arm" instance=ExtResource("2_tseqi")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.04, 0, -0.615)
+WEAPON_TYPE = ExtResource("3_8lp46")
+
+[connection signal="area_entered" from="Neck/Head/InteractionArea" to="Neck/Head/InteractionArea" method="_on_area_entered"]
+[connection signal="area_exited" from="Neck/Head/InteractionArea" to="Neck/Head/InteractionArea" method="_on_area_exited"]
